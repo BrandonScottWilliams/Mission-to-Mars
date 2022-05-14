@@ -7,11 +7,11 @@
    "metadata": {},
    "outputs": [],
    "source": [
+    "# Import Splinter and BeautifulSoup\n",
     "from splinter import Browser\n",
     "from bs4 import BeautifulSoup as soup\n",
-    "import pandas as pd\n",
-    "import datetime as dt\n",
-    "from webdriver_manager.chrome import ChromeDriverManager"
+    "from webdriver_manager.chrome import ChromeDriverManager\n",
+    "import pandas as pd "
    ]
   },
   {
@@ -70,11 +70,9 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "def mars_news(browser):\n",
-    "    html = browser.html    \n",
-    "    news_soup = soup(html, 'html.parser')\n",
-    "    try:\n",
-    "        slide_elem = news_soup.select_one('div.list_text')"
+    "html = browser.html\n",
+    "news_soup = soup(html, 'html.parser')\n",
+    "slide_elem = news_soup.select_one('div.list_text')"
    ]
   },
   {
@@ -95,7 +93,7 @@
     }
    ],
    "source": [
-    "        slide_elem.find('div', class_='content_title')"
+    "slide_elem.find('div', class_='content_title')"
    ]
   },
   {
@@ -116,9 +114,9 @@
     }
    ],
    "source": [
-    "        # Use the parent element to find the first `a` tag and save it as `news_title`\n",
-    "        news_title = slide_elem.find('div', class_='content_title').get_text()\n",
-    "        news_title"
+    "# Use the parent element to find the first `a` tag and save it as `news_title`\n",
+    "news_title = slide_elem.find('div', class_='content_title').get_text()\n",
+    "news_title"
    ]
   },
   {
@@ -139,12 +137,9 @@
     }
    ],
    "source": [
-    "        # Use the parent element to find the paragraph text\n",
-    "        news_p = slide_elem.find('div', class_='article_teaser_body').get_text()\n",
-    "        news_p\n",
-    "    except Attribute error\n",
-    "        return None, None\n",
-    "    return news_title, news_p    "
+    "# Use the parent element to find the paragraph text\n",
+    "news_p = slide_elem.find('div', class_='article_teaser_body').get_text()\n",
+    "news_p"
    ]
   },
   {
@@ -162,10 +157,9 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "def featured_image(browser)\n",
-    "    # Visit URL\n",
-    "    url = 'https://spaceimages-mars.com'\n",
-    "    browser.visit(url)\n"
+    "# Visit URL\n",
+    "url = 'https://spaceimages-mars.com'\n",
+    "browser.visit(url)\n"
    ]
   },
   {
@@ -175,9 +169,9 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "    # Find and click the full image button\n",
-    "    full_image_elem = browser.find_by_tag('button')[1]\n",
-    "    full_image_elem.click()"
+    "# Find and click the full image button\n",
+    "full_image_elem = browser.find_by_tag('button')[1]\n",
+    "full_image_elem.click()"
    ]
   },
   {
@@ -187,9 +181,9 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "    # Parse the resulting html with soup\n",
-    "    html = browser.html\n",
-    "    img_soup = soup(html, 'html.parser')"
+    "# Parse the resulting html with soup\n",
+    "html = browser.html\n",
+    "img_soup = soup(html, 'html.parser')"
    ]
   },
   {
@@ -210,14 +204,9 @@
     }
    ],
    "source": [
-    "\n",
-    "    try:\n",
-    "       # find the relative image url\n",
-    "       img_url_rel = img_soup.find('img', class_='fancybox-image').get('src')\n",
-    "\n",
-    "    except AttributeError:\n",
-    "       return None\n",
-    "    img_url_rel"
+    "# Find the relative image url\n",
+    "img_url_rel = img_soup.find('img', class_='fancybox-image').get('src')\n",
+    "img_url_rel"
    ]
   },
   {
@@ -238,9 +227,9 @@
     }
    ],
    "source": [
-    "    # Use the base URL to create an absolute URL\n",
-    "    img_url = f'https://spaceimages-mars.com/{img_url_rel}'\n",
-    "    return img_url\n",
+    "# Use the base URL to create an absolute URL\n",
+    "img_url = f'https://spaceimages-mars.com/{img_url_rel}'\n",
+    "img_url\n",
     "\n"
    ]
   },
@@ -338,18 +327,10 @@
     }
    ],
    "source": [
-    " def mars_facts()\n",
-    "    try:\n",
-    "        #use \"read_html\" to scrape the facts table into a dataframe\n",
-    "        df = pd.read_html('https://galaxyfacts-mars.com')[0]\n",
-    "    except BaseException\n",
-    "        return None\n",
-    "    # Assign columns and set index of dataframe\n",
-    "    df.columns=['Description', 'Mars', 'Earth']\n",
-    "    df.set_index('Description', inplace=True)\n",
-    "\n",
-    "    # Convert dataframe into HTML format, add bootstrap\n",
-    "    return df.to_html()"
+    "df = pd.read_html('https://galaxyfacts-mars.com')[0]\n",
+    "df.columns=['description', 'Mars', 'Earth']\n",
+    "df.set_index('description', inplace=True)\n",
+    "df"
    ]
   },
   {
@@ -375,26 +356,12 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 15,
    "id": "2141eb24",
    "metadata": {},
-   "outputs": [
-    {
-     "ename": "NameError",
-     "evalue": "name 'browser' is not defined",
-     "output_type": "error",
-     "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[1;32m~\\AppData\\Local\\Temp/ipykernel_12604/1824653544.py\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[0;32m      1\u001b[0m \u001b[1;31m# Stop webdriver and return data\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m----> 2\u001b[1;33m \u001b[0mbrowser\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mquit\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m      3\u001b[0m \u001b[1;32mreturn\u001b[0m \u001b[0mdata\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
-      "\u001b[1;31mNameError\u001b[0m: name 'browser' is not defined"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
-    "# Stop webdriver and return data\n",
-    "browser.quit()\n",
-    "return data"
+    "browser.quit()"
    ]
   },
   {
@@ -403,28 +370,7 @@
    "id": "97e24b85",
    "metadata": {},
    "outputs": [],
-   "source": [
-    "# Run all scraping functions and store results in dictionary\n",
-    "data = {\n",
-    "      \"news_title\": news_title,\n",
-    "      \"news_paragraph\": news_paragraph,\n",
-    "      \"featured_image\": featured_image(browser),\n",
-    "      \"facts\": mars_facts(),\n",
-    "      \"last_modified\": dt.datetime.now()\n",
-    "}"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "263ac013",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "if __name__ == \"__main__\":\n",
-    "    # If running as script, print scraped data\n",
-    "    print(scrape_all())"
-   ]
+   "source": []
   }
  ],
  "metadata": {
